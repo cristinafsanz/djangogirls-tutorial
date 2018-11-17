@@ -433,3 +433,34 @@ post.publish()
 - Añade la vista de detalle de la publicación: blog/views.py
 
 - Crear una plantilla para post detail: post_detail.html
+
+- Despliegue
+
+  - Actualizar los ficheros estáticos (static files) en el servidor
+
+  ```
+  workon cristinafsanz.pythonanywhere.com
+  python manage.py collectstatic
+  ```
+
+  - El comando manage.py collectstatic es un poco como el comando manage.py migrate. Hacemos cambios en nuestro código y luego le decimos a Django que los aplique, bien a la colección de ficheros estáticos o bien a la base de datos.
+
+  - Reload en el servidor
+
+### [Formularios de Django](https://tutorial.djangogirls.org/es/django_forms/)
+
+- Podemos definir los formularios de Django desde cero o crear un ModelForm, el cual guardará el resultado del formulario en el modelo.
+
+- Crear forms.py dentro de blog.
+
+- Enlace a una página con el formulario: blog/templates/blog/base.html
+
+- Vista post_new en blog/views.py.
+
+- Plantilla post_edit.html
+
+- Guardar el formulario: vista blog/views.py
+
+- Validación de formularios: En nuestro modelo Post no dijimos (a diferencia de published_date) que estos campos no son requeridos, así que Django, por defecto, espera que estén definidos. Django se encarga de validar que todos los campos en el formulario estén correctos. 
+
+- Editar formulario
