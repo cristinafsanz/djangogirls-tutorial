@@ -392,3 +392,44 @@ post.publish()
 
 - Las etiquetas de plantilla de Django nos permiten insertar elementos de Python dentro del HTML, para que puedas construir sitios web dinámicos más rápida y fácilmente.
 
+### [CSS](https://tutorial.djangogirls.org/es/css/)
+
+- Carpeta static dentro de blog. Y carpeta css dentro de static. Dentro blog.css
+
+- Referenciarlo en post_list.html:
+
+```
+{% load static %}
+```
+
+```
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+```
+
+- Parar y arrancar si no se cargan los estilos
+
+### [Extendiendo plantillas](https://tutorial.djangogirls.org/es/template_extending/)
+
+- base.html.
+
+- post_list.html:
+
+  ```
+  {% extends 'blog/base.html' %}
+  ```
+
+### [Extiende tu aplicación](https://tutorial.djangogirls.org/es/extend_your_application/)
+
+- Crea un enlace a la página de detalle de una publicación.
+
+- Añadir un enlace al fichero blog/templates/blog/post_list.html con Django template tags.
+
+```
+<a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+```
+
+- Crea una URL al detalle de una publicación: blog/urls.py
+
+- Añade la vista de detalle de la publicación: blog/views.py
+
+- Crear una plantilla para post detail: post_detail.html
