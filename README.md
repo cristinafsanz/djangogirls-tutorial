@@ -232,4 +232,62 @@ db.sqlite3
     pa_autoconfigure_django.py https://github.com/cristinafsanz/djangogirls-tutorial.git
     ```
 
+    - Crear superuser en la consola de PythonAnywhere (ahí creo con username cristinafsanz, en vez de cristinafernandez como en local):
 
+    ```
+    python manage.py createsuperuser
+    ```
+
+    - Sección [Web](https://www.pythonanywhere.com/user/cristinafsanz/webapps/#tab_id_cristinafsanz_pythonanywhere_com): Viene la página web: http://cristinafsanz.pythonanywhere.com/.
+
+    - Admin: http://cristinafsanz.pythonanywhere.com/admin/.
+
+### [URLs en Django](https://tutorial.djangogirls.org/es/django_urls/)
+
+- En el archivo mysite/urls.py:
+
+```
+from django.urls import path, include
+from django.contrib import admin
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('blog.urls')),
+]
+```
+
+- blog/urls.py:
+
+```
+from django.urls import path
+from . import views
+```
+
+### [Vistas en Django](https://tutorial.djangogirls.org/es/django_views/)
+
+- Una View es un lugar donde ponemos la "lógica" de nuestra aplicación. Pedirá información del modelo que has creado antes y se la pasará a la plantilla.
+
+- blog/views.py
+
+### [Primera plantilla](https://tutorial.djangogirls.org/es/html/)
+
+Las plantillas se guardan en el directorio de blog/templates/blog. 
+
+- Crear un directorio llamado templates dentro de blog. Luego crear otro directorio llamado blog dentro de tu directorio de templates.
+
+- Crear fichero post_list.html dentro de blog/templates/blog
+
+- Despliegue de nuevo
+
+  - Subir a GitHub los cambios
+
+  - En la consola de PythonAnywhere:
+
+  ```
+  cd ~/cristinafsanz.pythonanywhere.com
+  $ git pull
+  ```
+
+  - Comprobar que están los cambios: puedes ir a la página "Files" y ver tu código en PythonAnywhere.
+
+  - Finalmente, ve a la página "Web" y pulsa Reload en tu aplicación web.
