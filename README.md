@@ -101,9 +101,135 @@ PythonAnywhere es un servicio para ejecutar código Python en servidores "en la 
 
 - [Account - API Token](https://www.pythonanywhere.com/user/cristinafsanz/account/#api_token): Create new API token
 
-#### myvenv en .gitignore para no subirlo al repo
+#### Nota: myvenv en .gitignore para no subirlo al repo
 
 ```
 cat .gitignore
 myvenv
 ```
+
+## Taller
+
+### [¡Tu primer proyecto en Django!](https://tutorial.djangogirls.org/es/django_start_project/)
+
+```
+django-admin startproject mysite .
+```
+
+- Cambios del settings.py del tutorial
+
+- Configurar una base de datos:
+
+```
+python manage.py migrate
+```
+
+- Iniciar el servidor:
+
+```
+python manage.py runserver
+```
+
+Ya se tiene la aplicación en http://127.0.0.1:8000/.
+
+### [Modelos en Django](https://tutorial.djangogirls.org/es/django_models/)
+
+- Crear una aplicación separada dentro de nuestro proyect
+
+```
+python manage.py startapp blog
+```
+
+- Después de crear una aplicación, también necesitamos decirle a Django que debe utilizarla: en mysite/settings.py.
+
+- Crear el modelo del Post en blog/models.py.
+
+  - models.Model significa que Post es un modelo de Django, así Django sabe que debe guardarlo en la base de datos.
+
+- Crear tablas para los modelos en tu base de datos
+
+  - Tenemos que hacer saber a Django que hemos hecho cambios en nuestro modelo:
+
+  ```
+  python manage.py makemigrations blog
+  ```
+
+  - Django preparó un archivo de migración que ahora tenemos que aplicar a nuestra base de datos:
+
+  ```
+  python manage.py migrate blog
+  ```
+
+### [Administrador de Django](https://tutorial.djangogirls.org/es/django_admin/)
+
+- Para agregar, editar y borrar los posts que hemos modelado, usaremos el administrador (admin) de Django: blog/admin.py.
+
+- En http://127.0.0.1:8000/admin/.
+
+- Deberás crear un superusuario (superuser), que es un usuario que tiene control sobre todo el sitio:
+
+```
+python manage.py createsuperuser
+```
+
+```
+Username (leave blank to use 'cristinafernandez'):
+Email address: cristinafsanz@gmail.com
+Password:
+Password (again):
+Superuser created successfully.
+```
+
+- Entra con las credenciales de super usuario que tu escogiste; verás el panel de administrador de Django.
+
+- Añade cinco o seis publicaciones en tu blog (al menos dos o tres posts (pero no todos) tengan la fecha de publicación definida).
+
+### [Despliega](https://tutorial.djangogirls.org/es/deploy/)
+
+- Vamos a usar PythonAnywhere. PythonAnywhere es gratuito para aplicaciones pequeñas que no tienen muchos visitantes, y con eso tendrás más que suficiente por ahora.
+
+- Crear nuestro repositorio Git
+
+```
+git init
+git config --global user.name "Cristina Fernández"
+git config --global user.email cristinafsanz@gmail.com
+```
+
+- .gitignore
+
+```
+*.pyc
+*~
+__pycache__
+myvenv
+db.sqlite3
+/static
+.DS_Store
+```
+
+- Subir todos los ficheros a GitHub (git add ., git commit -m...., git push origin master)
+
+- Configurar nuestro blog en PythonAnywhere.
+
+  - [Dashboard](https://www.pythonanywhere.com/user/cristinafsanz/): 
+  
+    - Iniciar consola "Bash".
+
+    - Para desplegar una aplicación web en PythonAnywhere necesitas descargar tu código de GitHub y configurar PythonAnywhere para que lo reconozca y lo sirva como una aplicación web. PythonAnywhere tiene una herramienta automática que lo hará todo por nosotros:
+
+    - En la consola de [PythonAnywhere](https://www.pythonanywhere.com/user/cristinafsanz/consoles/11064741/): 
+
+    ```
+    pip3.6 install --user pythonanywhere
+    ```
+
+    - Ahora ejecutaremos el asistente para configurar automáticamente nuestra aplicación desde GitHub.
+
+    - En la consola de [PythonAnywhere](https://www.pythonanywhere.com/user/cristinafsanz/consoles/11064741/): 
+
+    ```
+    pa_autoconfigure_django.py https://github.com/cristinafsanz/djangogirls-tutorial.git
+    ```
+
+
