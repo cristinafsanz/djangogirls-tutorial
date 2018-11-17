@@ -291,3 +291,104 @@ Las plantillas se guardan en el directorio de blog/templates/blog.
   - Comprobar que están los cambios: puedes ir a la página "Files" y ver tu código en PythonAnywhere.
 
   - Finalmente, ve a la página "Web" y pulsa Reload en tu aplicación web.
+
+### [ORM de Django y QuerySets](https://tutorial.djangogirls.org/es/django_orm/)
+
+- Un QuerySet es, en esencia, una lista de objetos de un modelo determinado. Un QuerySet te permite leer los datos de la base de datos, filtrarlos y ordenarlos.
+
+- En consola local:
+
+```
+python manage.py shell
+```
+
+```
+>>> from blog.models import Post
+>>> Post.objects.all()
+<QuerySet [<Post: Post de prueba>, <Post: Otro post>, <Post: Ryan>, <Post: Ryan 2>, <Post: Ryan 3>]>
+```
+
+- Crear objetos
+
+```
+>>> from django.contrib.auth.models import User
+>>> User.objects.all()
+<QuerySet [<User: cristinafernandez>]>
+>>> me = User.objects.get(username='cristinafernandez')
+>>> Post.objects.create(author=me, title='Sample title', text='Test')
+<Post: Sample title>
+```
+
+- Comprobación
+
+```
+>>> Post.objects.all()
+<QuerySet [<Post: Post de prueba>, <Post: Otro post>, <Post: Ryan>, <Post: Ryan 2>, <Post: Ryan 3>, <Post: Sample title>]>
+```
+
+- Filtrar objetos
+
+```
+>>> Post.objects.filter(author=me)
+<QuerySet [<Post: Post de prueba>, <Post: Otro post>, <Post: Ryan>, <Post: Ryan 2>, <Post: Ryan 3>, <Post: Sample title>, <Post: Desde QuerySet>]>
+```
+
+```
+>>> Post.objects.filter(title__contains='title')
+<QuerySet [<Post: Sample title>]>
+```
+
+```
+>>> from django.utils import timezone
+>>> Post.objects.filter(published_date__lte=timezone.now())
+<QuerySet [<Post: Ryan>, <Post: Ryan 2>, <Post: Ryan 3>]>
+```
+
+```
+post = Post.objects.get(title="Sample title")
+post.publish()
+```
+
+```
+>>> Post.objects.filter(published_date__lte=timezone.now())
+<QuerySet [<Post: Ryan>, <Post: Ryan 2>, <Post: Ryan 3>, <Post: Sample title>]>
+```
+
+- Ordenar posts
+
+```
+>>> Post.objects.order_by('created_date')
+<QuerySet [<Post: Post de prueba>, <Post: Otro post>, <Post: Ryan>, <Post: Ryan 2>, <Post: Ryan 3>, <Post: Sample title>, <Post: Desde QuerySet>]>
+```
+
+- Encadenar QuerySets
+
+```
+>>> Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+<QuerySet [<Post: Ryan>, <Post: Ryan 2>, <Post: Ryan 3>, <Post: Sample title>]>
+```
+
+- Cerrar la consola
+
+```
+>>> exit()
+```
+
+### [Datos dinámicos en plantillas](https://tutorial.djangogirls.org/es/dynamic_data_in_templates/)
+
+-  En nuestra view post_list necesitaremos tomar los modelos que deseamos mostrar y pasarlos a una plantilla. 
+
+- blog/views.py
+
+  ```
+  from .models import Post
+  ```
+
+  - El punto antes de models indica el directorio actual o la aplicación actual. Ambos, views.py y models.py están en el mismo directorio.
+
+  - En la función render tenemos el parámetro request (todo lo que recibimos del usuario via Internet) y otro parámetro dándole el archivo de la plantilla ('blog/post_list.html')
+
+### [Plantillas de Django](https://tutorial.djangogirls.org/es/django_templates/)
+
+- Las etiquetas de plantilla de Django nos permiten insertar elementos de Python dentro del HTML, para que puedas construir sitios web dinámicos más rápida y fácilmente.
+
